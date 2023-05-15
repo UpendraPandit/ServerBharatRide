@@ -1,3 +1,4 @@
+
 const {Router}  = require('express');
 const router = Router();
 
@@ -6,7 +7,7 @@ router.get('/',(req,res)=>{
     res.status(200).json('Server on port 25060');
 
 });
-router.get('/:users',(req,res)=>{
+router.get('/users',(req,res)=>{
 mysqlConnection.query('select * from mainTable;',(error, rows, fields)=>{
     if(!error)
     {
@@ -18,9 +19,9 @@ mysqlConnection.query('select * from mainTable;',(error, rows, fields)=>{
     }
 })
 });
-router.post('/:createNewUser',(req,res)=>{
-    const{phone,name,email,gender,image,activeStatus}=req.body;
-    mysqlConnection.query('insert into mainTable values(?,?,?,?,?,?);',[phone,name,email,gender,image,activeStatus],(error,rows,fields)=>
+router.post('/createNewUser',(req,res)=>{
+    const{phone,name,email,gender,image,token}=req.body;
+    mysqlConnection.query('insert into mainTable values(?,?,?,?,?,?);',[phone,name,email,gender,image,token],(error,rows,fields)=>
     {
         if(!error)
         {
@@ -32,7 +33,7 @@ router.post('/:createNewUser',(req,res)=>{
         }
     });
 });
-router.get('/:users/:user',(req,res)=>{
+router.get('/users/user',(req,res)=>{
     const {phone} = req.query;
     mysqlConnection.query('select * from mainTable where phone = ?',[phone],(error,rows,fields)=>{
         if(!error)
@@ -49,7 +50,7 @@ router.get('/:users/:user',(req,res)=>{
     });
 
 });
-router.post('/:users',(req,res)=>{
+router.post('/users',(req,res)=>{
     const{phone, name,  email,gender,univ}=req.body;
      console.log(req.body);
      mysqlConnection.query('insert into mainTable(phone,name,email,gender,univ) values(?,?,?,?,?);',[
@@ -82,7 +83,127 @@ router.put('/:users/:id',(req,res)=>{
         }
      });
 });
+router.get('/users/updateToken',(req,res)=>{
+    const {phone,token}=req.query;
+     
+    mysqlConnection.query('update mainTable set token =? where phone=?;',[
+        token,phone
+            ],(error,rows,fields)=>{
 
+  if(!error)
+        {
+             res.json(phone);
+        }
+        else{
+            console.log(error);
+        }
+     });
+});
+
+router.get('/users/updatePilotRide',(req,res)=>{
+    const {phone}=req.query;
+
+    mysqlConnection.query('update mainTable set pilot =pilot+1 where phone=?;',[
+        phone
+            ],(error,rows,fields)=>{
+
+  if(!error)
+        {
+             res.json(phone);
+        }
+        else{
+            console.log(error);
+        }
+     });
+});
+
+
+
+
+router.get('/users/updatePassengerRide',(req,res)=>{
+    const {phone}=req.query;
+
+    mysqlConnection.query('update mainTable set passenger =passenger+1 where phone=?;',[
+        phone
+            ],(error,rows,fields)=>{
+
+  if(!error)
+        {
+             res.json(phone);
+        }
+        else{
+            console.log(error);
+        }
+     });
+});
+
+
+router.get('/users/updateTotalRide',(req,res)=>{
+    const {phone}=req.query;
+
+    mysqlConnection.query('update mainTable set total =total+1 where phone=?;',[
+        phone
+            ],(error,rows,fields)=>{
+if(!error)
+        {
+             res.json(phone);
+        }
+        else{
+            console.log(error);
+        }
+     });
+});
+
+router.get('/users/getPilotRides',(req,res)=>{
+    const {phone,valueof}=req.query;
+
+    mysqlConnection.query('select pilot from mainTable where phone =?',[
+phone
+            ],(error,rows,fields)=>{
+
+  if(!error)
+        {
+             res.json(rows);
+        }
+        else{
+            console.log(error);
+        }
+     });
+});
+router.get('/users/getPassengerRides',(req,res)=>{
+    const {phone,valueof}=req.query;
+
+    mysqlConnection.query('select passenger from mainTable where phone =?',[
+phone
+            ],(error,rows,fields)=>{
+
+  if(!error)
+        {
+             res.json(rows);
+        }
+        else{
+            console.log(error);
+        }
+     });
+});
+
+
+router.get('/users/getTotalRides',(req,res)=>{
+    const {phone,valueof}=req.query;
+
+    mysqlConnection.query('select total from mainTable where phone =?',[
+phone
+            ],(error,rows,fields)=>{
+
+  if(!error)
+        {
+             res.json(rows);
+        }
+        else{
+            console.log(error);
+        }
+     });
+});
 router.delete('/:users/:id',(req,res)=>{
     const {phone} = req.params;
     mysqlConnection.query('delete from mainTable where id = ?;',[phone],(error,rows,fields)=>{
