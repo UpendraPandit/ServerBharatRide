@@ -20,8 +20,8 @@ mysqlConnection.query('select * from mainTable;',(error, rows, fields)=>{
 })
 });
 router.post('/createNewUser',(req,res)=>{
-    const{phone,name,email,gender,image,token}=req.body;
-    mysqlConnection.query('insert into mainTable values(?,?,?,?,?,?);',[phone,name,email,gender,image,token],(error,rows,fields)=>
+    const{phone,name,email,gender,image,token,passenger,pilot,total}=req.body;
+    mysqlConnection.query('insert into mainTable values(?,?,?,?,?,?,?,?,?);',[phone,name,email,gender,image,token,passenger,pilot,total],(error,rows,fields)=>
     {
         if(!error)
         {
