@@ -3,9 +3,9 @@ const mysql = require('mysql2')
 const mysqlConnection = mysql.createConnection({
     // mysql://doadmin:AVNS_Tbd0LAzTqYn4_sZaLk-@db-mysql-nyc1-57626-do-user-14369736-0.b.db.ondigitalocean.com:25060/defaultdb?ssl-mode=REQUIRED
     
-        host: 'db-mysql-blr1-51253-do-user-16275209-0.c.db.ondigitalocean.com',
+        host: 'user-db-do-user-16824224-0.c.db.ondigitalocean.com',
         user: 'doadmin',
-        password: 'AVNS_Dn6ariXVpJdp_Ltr3Fr',
+        password: 'AVNS_GJcEx0Hm7KBqMZYLMN-',
         database:'defaultdb',
         port:25060,
 });
